@@ -1,4 +1,5 @@
 import 'package:din_koffein/providers/UserProvider.dart';
+import 'package:din_koffein/views/AddProductScreen.dart';
 import 'package:din_koffein/views/HomeScreen.dart';
 import 'package:din_koffein/views/authentication/Login.dart';
 import 'package:din_koffein/views/authentication/SignUp.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (context) => Login(),
           '/signup': (context) => SignUp(),
+          '/addproduct': (context) => AddProductScreen(),
         },
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(

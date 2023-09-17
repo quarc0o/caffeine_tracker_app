@@ -1,4 +1,5 @@
 import 'package:din_koffein/components/DrinkHistory/DrinkScroll.dart';
+import 'package:din_koffein/views/AddProductScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -79,7 +80,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             200, // Adjust this value based on how tall you want the scrolling area to be.
                         child: DrinkScroll(),
                       ),
-                      ElevatedButton(onPressed: () {}, child: Text("Legg til"))
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddProductScreen()));
+                          },
+                          child: Text("Legg til"))
                     ],
                   ),
                 ),
