@@ -43,14 +43,20 @@ class Chart extends StatelessWidget {
             backgroundColor: Colors.white,
             gridData: FlGridData(show: false),
             titlesData: FlTitlesData(
-              show: false,
+              show: true,
+              rightTitles: AxisTitles(
+                sideTitles: SideTitles(showTitles: false),
+              ),
+              topTitles: AxisTitles(
+                sideTitles: SideTitles(showTitles: false),
+              ),
             ),
             minX: 0,
             maxX: caffeineValues.length.toDouble() - 1,
             minY: 0,
             maxY: caffeineValues.reduce(
                     (value, element) => value > element ? value : element) +
-                1000, // Setting maximum Y to a bit more than the max caffeine value for better chart visibility.
+                10, // Setting maximum Y to a bit more than the max caffeine value for better chart visibility.
             borderData: FlBorderData(show: false),
             lineBarsData: [
               LineChartBarData(
@@ -67,4 +73,54 @@ class Chart extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget bottomTitleWidgets(double value, TitleMeta meta) {
+  const style = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+  );
+  Widget text;
+  switch (value.toInt()) {
+    case 2:
+      text = const Text('MAR', style: style);
+      break;
+    case 5:
+      text = const Text('JUN', style: style);
+      break;
+    case 8:
+      text = const Text('SEP', style: style);
+      break;
+    default:
+      text = const Text('', style: style);
+      break;
+  }
+
+  return SideTitleWidget(
+    axisSide: meta.axisSide,
+    child: text,
+  );
+}
+
+Widget leftTitleWidgets(double value, TitleMeta meta) {
+  const style = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 15,
+  );
+  String text;
+  switch (value.toInt()) {
+    case 1:
+      text = '10K';
+      break;
+    case 3:
+      text = '30k';
+      break;
+    case 5:
+      text = '50k';
+      break;
+    default:
+      return Container();
+  }
+
+  return Text(text, style: style, textAlign: TextAlign.left);
 }
