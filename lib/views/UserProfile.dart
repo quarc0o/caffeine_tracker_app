@@ -13,13 +13,16 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  String? name = "John Doe"; // Replace this with actual data
-  int? age = 20;
-  int? weight = 70;
-  CaffeineTolerance? caffeineTolerance = CaffeineTolerance.MEDIUM;
-
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: true);
+    UserModel? user = userProvider.user;
+    String? name = user?.name ?? "John Doe";
+    int? age = user?.age ?? 20;
+    int? weight = user?.weight ?? 70;
+    CaffeineTolerance? caffeineTolerance =
+        user?.tolerance ?? CaffeineTolerance.MEDIUM;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("User Profile"),
@@ -47,10 +50,11 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(height: 10),
             Text("Weight: ${weight}kg"),
             SizedBox(height: 10),
-            Text("Caffeine Tolerance: $caffeineTolerance"),
+            Text("Caffeine Tolerance: ${caffeineTolerance.description}"),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _showEditProfileDialog,
+              onPressed: () =>
+                  _showEditProfileDialog(name, age, weight, caffeineTolerance),
               child: Text("Edit Profile"),
             ),
           ],
@@ -59,7 +63,8 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
-  void _showEditProfileDialog() {
+  void _showEditProfileDialog(String name, int? age, int? weight,
+      CaffeineTolerance? caffeineTolerance) {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     showDialog(
