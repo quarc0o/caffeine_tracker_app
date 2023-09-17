@@ -3,6 +3,7 @@ import 'package:din_koffein/views/AddProductScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../caffeine.dart';
 import '../components/Chart.dart';
 import '../providers/UserProvider.dart';
 
@@ -71,7 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 100,
                       ),
-                      const Chart(),
+                      Chart(
+                        caffeineValues:
+                            calculateTotalCaffeineOverTime(user?.drinks ?? []),
+                      ),
                       SizedBox(
                         height: 40,
                       ),

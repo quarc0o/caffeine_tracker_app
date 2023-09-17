@@ -1,30 +1,23 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class Chart extends StatefulWidget {
-  const Chart({super.key});
+class Chart extends StatelessWidget {
+  final List<double> caffeineValues;
 
-  @override
-  State<Chart> createState() => _ChartState();
-}
-
-class _ChartState extends State<Chart> {
-  final List<FlSpot> caffeineData = [
-    FlSpot(0, 45),
-    FlSpot(1, 80),
-    FlSpot(2, 38),
-    FlSpot(3, 25),
-  ];
+  const Chart({Key? key, required this.caffeineValues}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<FlSpot> caffeineData = List.generate(caffeineValues.length, (index) {
+      return FlSpot(index.toDouble(), caffeineValues[index]);
+    });
+
     return Container(
-      width: 310, // Increased to account for the padding
-      height: 210, // Increased to account for the padding
+      width: 310,
+      height: 210,
       decoration: BoxDecoration(
-        color: Colors.white, // This gives the background color
-        borderRadius:
-            BorderRadius.circular(16), // This gives the rounded borders
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: Colors.black12,
@@ -34,8 +27,7 @@ class _ChartState extends State<Chart> {
           ),
         ],
       ),
-      padding: const EdgeInsets.all(
-          5), // Giving some padding to see the shadow properly
+      padding: const EdgeInsets.all(5),
       child: SizedBox(
         width: 300,
         height: 200,
@@ -45,9 +37,11 @@ class _ChartState extends State<Chart> {
             gridData: FlGridData(show: false),
             titlesData: FlTitlesData(show: false),
             minX: 0,
-            maxX: 3, // adjusted to the max x-value you provided
+            maxX: caffeineValues.length.toDouble() - 1,
             minY: 0,
-            maxY: 100,
+            maxY: caffeineValues.reduce(
+                    (value, element) => value > element ? value : element) +
+                1000, // Setting maximum Y to a bit more than the max caffeine value for better chart visibility.
             borderData: FlBorderData(show: false),
             lineBarsData: [
               LineChartBarData(
