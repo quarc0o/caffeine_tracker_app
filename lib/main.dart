@@ -29,7 +29,12 @@ class MyApp extends StatelessWidget {
           '/signup': (context) => SignUp(),
         },
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: Color(0xff0081A7),
+              primary: Color(0xff0081A7),
+              secondary: Color(0xff00AFB9),
+              onPrimary: Colors.white,
+              onSecondary: Colors.white),
           useMaterial3: true,
         ),
         home: Consumer<UserProvider>(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../components/Chart.dart';
 import '../providers/UserProvider.dart';
 // ... other imports
 
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF0081A7),
         title: Text('Home'),
         actions: <Widget>[
           IconButton(
@@ -32,21 +34,42 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Hello, ${user?.name ?? 'Guest'}!',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
+      body: Column(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Color(0xFF0081A7), // Adjust this to your desired color
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Hello, ${user?.name ?? 'Guest'}!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Welcome back to our app!',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Chart()
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 20),
-            Text('Welcome back to our app!'),
-          ],
-        ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+                // This is the remaining 2/3 of the screen. You can put any other content you want here.
+                ),
+          ),
+        ],
       ),
     );
   }
