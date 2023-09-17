@@ -18,8 +18,12 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  bool isLoading = false;
 
   Future<void> signUp() async {
+    setState(() {
+      isLoading = true;
+    });
     if (passwordController.text != confirmPasswordController.text) {
       Fluttertoast.showToast(
           msg: "Passwords do not match!",
@@ -68,6 +72,9 @@ class _SignUpState extends State<SignUp> {
           textColor: Colors.white,
           fontSize: 16.0);
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -118,10 +125,13 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             SizedBox(height: 20.0),
-            ElevatedButton(
-              child: Text('Sign Up'),
-              onPressed: signUp,
-            ),
+            if (isLoading)
+              CircularProgressIndicator()
+            else
+              ElevatedButton(
+                child: Text('Sign Up'),
+                onPressed: signUp,
+              ),
           ],
         ),
       ),

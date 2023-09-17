@@ -13,8 +13,12 @@ class _LoginScreenState extends State<Login> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool _isLoading = false;
 
   Future<void> signIn() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final UserCredential userCredential =
           await _auth.signInWithEmailAndPassword(
@@ -43,6 +47,9 @@ class _LoginScreenState extends State<Login> {
           textColor: Colors.white,
           fontSize: 16.0);
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -74,10 +81,13 @@ class _LoginScreenState extends State<Login> {
               ),
             ),
             SizedBox(height: 20.0),
-            ElevatedButton(
-              child: Text('Login'),
-              onPressed: signIn,
-            ),
+            if (_isLoading)
+              CircularProgressIndicator()
+            else
+              ElevatedButton(
+                child: Text('Login'),
+                onPressed: signIn,
+              ),
             SizedBox(height: 10.0),
             ElevatedButton(
               child: Text('Don\'t have an account? Sign Up'),
