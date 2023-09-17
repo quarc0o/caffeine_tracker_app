@@ -13,4 +13,22 @@ class FirebaseFunctions {
       print("Error: $e");
     }
   }
+
+  void addDrinkToFirebase(
+      String userId, String drinkName, int caffeineContent) {
+    final drinkRef = databaseReference
+        .child('users')
+        .child(userId)
+        .child("drinks")
+        .child(DateTime.now().millisecondsSinceEpoch.toString());
+
+    drinkRef.set({
+      'drink_name': drinkName,
+      'caffeine_content': caffeineContent,
+    }).then((_) {
+      print("Drink added successfully!");
+    }).catchError((error) {
+      print("Failed to add drink: $error");
+    });
+  }
 }

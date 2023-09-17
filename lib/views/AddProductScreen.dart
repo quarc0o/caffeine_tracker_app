@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/UserProvider.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({Key? key}) : super(key: key);
@@ -33,6 +37,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(title: Text("Add Product")),
       body: Padding(
@@ -85,6 +92,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 fontSize: 16,
               ),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  try {
+                    userProvider.addDrink(
+                        _selectedProduct, _calculateCaffeineIntake());
+                    Navigator.pop(context, _calculateCaffeineIntake());
+                    Fluttertoast.showToast(
+                        msg: "Product lagt til",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                child: Text("Add product")),
           ],
         ),
       ),

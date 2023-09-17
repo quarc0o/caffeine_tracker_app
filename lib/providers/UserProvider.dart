@@ -1,3 +1,4 @@
+import 'package:din_koffein/firebase.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -19,6 +20,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> _onAuthStateChanged(User? firebaseUser) async {
+    print('Auth state changed: $firebaseUser');
     if (firebaseUser == null) {
       _currentUser = null;
     } else {
@@ -44,6 +46,16 @@ class UserProvider extends ChangeNotifier {
       _currentUser = null;
       notifyListeners();
     }
+  }
+
+  Future<void> addDrink(String drinkName, int caffeineContent) async {
+    if (_currentUser == null || _currentUser!.id.isEmpty) {
+      print("not working");
+      return;
+    }
+    print("working");
+    FirebaseFunctions()
+        .addDrinkToFirebase(_currentUser!.id, drinkName, caffeineContent);
   }
 
   void signOut() {
