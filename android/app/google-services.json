@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "714632178553",
+    "project_id": "computas-case-it",
+    "storage_bucket": "computas-case-it.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714632178553:android:e8f307b7bb7040deb45da8",
+        "android_client_info": {
+          "package_name": "com.example.din_koffein"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS85xsbfBZHhXd-IAnu9-ZopUhdaxqais"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
