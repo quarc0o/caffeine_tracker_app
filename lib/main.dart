@@ -24,6 +24,10 @@ class MyApp extends StatelessWidget {
       create: (context) => UserProvider(),
       child: MaterialApp(
         title: 'Your App',
+        routes: {
+          '/login': (context) => Login(),
+          '/signup': (context) => SignUp(),
+        },
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
