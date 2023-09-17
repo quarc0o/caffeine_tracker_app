@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/UserProvider.dart';
@@ -59,76 +60,90 @@ class _UserProfileState extends State<UserProfile> {
 
   void _showEditProfileDialog() {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: Text("Edit Profile"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                initialValue: age?.toString(),
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Alder",
-                ),
-                onChanged: (value) {
-                  age = int.tryParse(value);
-                },
+        bool _isLoading =
+            false; // This variable is now local to the builder function
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              title: Text("Edit Profile"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    initialValue: age?.toString(),
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "Alder",
+                    ),
+                    onChanged: (value) {
+                      age = int.tryParse(value);
+                    },
+                  ),
+                  TextFormField(
+                    initialValue: weight?.toString(),
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "Vekt (kg)",
+                    ),
+                    onChanged: (value) {
+                      weight = int.tryParse(value);
+                    },
+                  ),
+                  DropdownButtonFormField<String>(
+                    value: caffeineTolerance,
+                    items: ["Lav", "Moderat", "Høy"].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        caffeineTolerance = newValue;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Koffeintolleranse",
+                    ),
+                  ),
+                ],
               ),
-              TextFormField(
-                initialValue: weight?.toString(),
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Vekt (kg)",
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Avbryt"),
                 ),
-                onChanged: (value) {
-                  weight = int.tryParse(value);
-                },
-              ),
-              DropdownButtonFormField<String>(
-                value: caffeineTolerance,
-                items: ["Lav", "Moderat", "Høy"].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    caffeineTolerance = newValue;
-                  });
-                },
-                decoration: InputDecoration(
-                  labelText: "Koffeintolleranse",
+                ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    if (age != null) {
+                      await userProvider.setUserAge(age!);
+                    }
+                    if (weight != null) {
+                      await userProvider.setUserWeight(weight!);
+                    }
+                    if (caffeineTolerance != null) {
+                      await userProvider
+                          .setUserAlcoholTolerance(caffeineTolerance!);
+                    }
+                    Navigator.of(context).pop();
+                    Fluttertoast.showToast(msg: "Profil oppdatert!");
+                  },
+                  child:
+                      _isLoading ? CircularProgressIndicator() : Text("Lagre"),
                 ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Avbryt"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                if (age != null) {
-                  userProvider.setUserAge(age!);
-                }
-                if (weight != null) {
-                  userProvider.setUserWeight(weight!);
-                }
-                if (caffeineTolerance != null) {
-                  userProvider.setUserAlcoholTolerance(caffeineTolerance!);
-                }
-              },
-              child: Text("Lagre"),
-            ),
-          ],
+              ],
+            );
+          },
         );
       },
     );

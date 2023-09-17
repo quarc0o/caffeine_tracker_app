@@ -110,7 +110,8 @@ class Chart extends StatelessWidget {
                 LineChartBarData(
                   spots: caffeineData,
                   isCurved: true,
-                  barWidth: 6,
+                  curveSmoothness: 1,
+                  barWidth: 2,
                   isStrokeCapRound: true,
                   belowBarData: BarAreaData(show: false),
                   dotData: const FlDotData(show: false),

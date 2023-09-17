@@ -24,24 +24,25 @@ class Drink {
 
 double caffeineRemaining(double initialAmount, Duration timePassed) {
   const double halfLifeHours = 4; // You can adjust this value
-  num decayFactor = pow(1 / 2, timePassed.inHours / halfLifeHours);
+  num decayFactor = pow(1 / 2, timePassed.inMinutes / (halfLifeHours * 60));
   return initialAmount * decayFactor;
 }
 
 List<double> calculateCaffeineOverTime(
     List<Drink> drinks, DateTime currentTime) {
-  List<double> caffeineContentPerHour = List.filled(12, 0.0); // 12 hours
+  List<double> caffeineContentPerMinute = List.filled(720, 0.0); // 12 hours
 
-  for (int hour = 1; hour <= 12; hour++) {
+  for (int minute = 1; minute <= 720; minute++) {
     for (var drink in drinks) {
-      Duration timePassed =
-          currentTime.add(Duration(hours: hour)).difference(drink.timeConsumed);
-      if (timePassed.inHours < 12) {
-        caffeineContentPerHour[hour - 1] +=
+      Duration timePassed = currentTime
+          .add(Duration(minutes: minute))
+          .difference(drink.timeConsumed);
+      if (timePassed.inMinutes <= 720 && timePassed.inMinutes >= 0) {
+        caffeineContentPerMinute[minute - 1] +=
             caffeineRemaining(drink.caffeineContent.toDouble(), timePassed);
       }
     }
   }
 
-  return caffeineContentPerHour;
+  return caffeineContentPerMinute;
 }
