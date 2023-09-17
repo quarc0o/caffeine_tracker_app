@@ -8,7 +8,9 @@ import '../models/UserModel.dart';
 class UserProvider extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   UserModel? _currentUser;
+  List<Drink?> _currentDrinks = [];
 
+  List<Drink?> get currentDrinks => _currentDrinks;
   UserModel? get user => _currentUser;
 
   UserProvider() {
@@ -22,7 +24,6 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> _onAuthStateChanged(User? firebaseUser) async {
-    print('Auth state changed: $firebaseUser');
     if (firebaseUser == null) {
       _currentUser = null;
     } else {
@@ -32,6 +33,7 @@ class UserProvider extends ChangeNotifier {
         email: firebaseUser.email ?? "",
       );
     }
+    fetchUserDrinks();
     notifyListeners();
   }
 
@@ -70,6 +72,7 @@ class UserProvider extends ChangeNotifier {
     List<Drink> userDrinks =
         await FirebaseFunctions().fetchRecentDrinks(_currentUser!.id);
     _currentUser!.drinks = userDrinks;
+    _currentDrinks = userDrinks;
     notifyListeners();
   }
 

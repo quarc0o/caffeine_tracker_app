@@ -78,7 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         height:
                             200, // Adjust this value based on how tall you want the scrolling area to be.
-                        child: DrinkScroll(),
+                        child: DrinkScroll(
+                          drinks: user?.drinks,
+                        ),
                       ),
                       ElevatedButton(
                           onPressed: () {

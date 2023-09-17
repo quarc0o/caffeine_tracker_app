@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/Drink.dart';
 
@@ -13,12 +14,15 @@ class SingleDrink extends StatefulWidget {
 class _SingleDrinkState extends State<SingleDrink> {
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime =
+        DateTime.fromMillisecondsSinceEpoch(widget.drink.timestamp);
+    String formattedTime = DateFormat('HH:mm').format(dateTime);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white, // This gives the background color
         borderRadius:
             BorderRadius.circular(16), // This gives the rounded borders
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             offset: Offset(0, 4),
@@ -32,7 +36,7 @@ class _SingleDrinkState extends State<SingleDrink> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text("Navn på drikke"),
+          Text(widget.drink.drinkName),
           Container(
             width: 100,
             height: 100,
@@ -41,7 +45,7 @@ class _SingleDrinkState extends State<SingleDrink> {
               fit: BoxFit.cover,
             ),
           ),
-          Text("18:09")
+          Text(formattedTime),
         ],
       ),
     );
