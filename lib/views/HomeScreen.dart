@@ -71,11 +71,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 100,
                       ),
                       const Chart(),
+                      SizedBox(
+                        height: 40,
+                      ),
                       Container(
                         height:
                             200, // Adjust this value based on how tall you want the scrolling area to be.
                         child: DrinkScroll(),
-                      )
+                      ),
+                      ElevatedButton(onPressed: () {}, child: Text("Legg til"))
                     ],
                   ),
                 ),

@@ -10,7 +10,7 @@ class DrinkScroll extends StatefulWidget {
 
 class _DrinkScrollState extends State<DrinkScroll> {
   final int numberOfDrinks =
-      20; // Change this to how many drinks you want in the list.
+      8; // Change this to how many drinks you want in the list.
 
   @override
   Widget build(BuildContext context) {
