@@ -1,9 +1,9 @@
 import 'package:din_koffein/providers/UserProvider.dart';
+import 'package:din_koffein/views/HomeScreen.dart';
 import 'package:din_koffein/views/authentication/Login.dart';
 import 'package:din_koffein/views/authentication/SignUp.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'HomeScreen.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 
@@ -23,11 +23,19 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => UserProvider(),
       child: MaterialApp(
-        title: 'Din Koffein',
+        title: 'Your App',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
         ),
-        home: HomeScreen(),
+        home: Consumer<UserProvider>(
+          builder: (context, userProvider, child) {
+            if (userProvider.user != null) {
+              return HomeScreen();
+            }
+            return Login();
+          },
+        ),
       ),
     );
   }

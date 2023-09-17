@@ -3,34 +3,52 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/UserModel.dart';
 
-class UserProvider with ChangeNotifier {
-  UserModel? _user;
+class UserProvider extends ChangeNotifier {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  UserModel? _currentUser;
 
-  UserModel? get user => _user;
+  UserModel? get user => _currentUser;
+
+  UserProvider() {
+    _auth.authStateChanges().listen(_onAuthStateChanged);
+  }
 
   set user(UserModel? user) {
-    _user = user;
+    _currentUser = user;
+    notifyListeners();
+  }
+
+  Future<void> _onAuthStateChanged(User? firebaseUser) async {
+    if (firebaseUser == null) {
+      _currentUser = null;
+    } else {
+      _currentUser = UserModel(
+        id: firebaseUser.uid,
+        name: firebaseUser.displayName ?? "",
+        email: firebaseUser.email ?? "",
+      );
+    }
     notifyListeners();
   }
 
   Future<void> refreshCurrentUser() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUser = _auth.currentUser;
     if (currentUser != null) {
-      _user = UserModel(
+      _currentUser = UserModel(
         id: currentUser.uid,
         name: currentUser.displayName ?? '',
         email: currentUser.email ?? '',
       );
       notifyListeners();
     } else {
-      _user = null;
+      _currentUser = null;
       notifyListeners();
     }
   }
 
   void signOut() {
-    FirebaseAuth.instance.signOut();
-    _user = null;
+    _auth.signOut();
+    _currentUser = null;
     notifyListeners();
   }
 }
