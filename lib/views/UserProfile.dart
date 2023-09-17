@@ -1,3 +1,4 @@
+import 'package:din_koffein/models/UserModel.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class _UserProfileState extends State<UserProfile> {
   String? name = "John Doe"; // Replace this with actual data
   int? age = 20;
   int? weight = 70;
-  String? caffeineTolerance = "Moderat";
+  CaffeineTolerance? caffeineTolerance = CaffeineTolerance.MEDIUM;
 
   @override
   Widget build(BuildContext context) {
@@ -94,23 +95,23 @@ class _UserProfileState extends State<UserProfile> {
                       weight = int.tryParse(value);
                     },
                   ),
-                  DropdownButtonFormField<String>(
+                  DropdownButtonFormField<CaffeineTolerance>(
                     value: caffeineTolerance,
-                    items: ["Lav", "Moderat", "Høy"].map((String value) {
-                      return DropdownMenuItem<String>(
+                    items:
+                        CaffeineTolerance.values.map((CaffeineTolerance value) {
+                      return DropdownMenuItem<CaffeineTolerance>(
                         value: value,
-                        child: Text(value),
+                        child: Text(value.description),
                       );
                     }).toList(),
-                    onChanged: (newValue) {
-                      setState(() {
-                        caffeineTolerance = newValue;
-                      });
+                    onChanged: (CaffeineTolerance? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          caffeineTolerance = newValue;
+                        });
+                      }
                     },
-                    decoration: InputDecoration(
-                      labelText: "Koffeintolleranse",
-                    ),
-                  ),
+                  )
                 ],
               ),
               actions: [

@@ -21,7 +21,7 @@ class Drink {
 
   DateTime get timeConsumed => DateTime.fromMillisecondsSinceEpoch(timestamp);
 }
-
+/* 
 double caffeineRemaining(double initialAmount, Duration timePassed) {
   const double halfLifeHours = 4; // You can adjust this value
   num decayFactor = pow(1 / 2, timePassed.inMinutes / (halfLifeHours * 60));
@@ -46,3 +46,4 @@ List<double> calculateCaffeineOverTime(
 
   return caffeineContentPerMinute;
 }
+ */

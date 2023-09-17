@@ -1,3 +1,4 @@
+import 'package:din_koffein/models/UserModel.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'models/Drink.dart';
@@ -104,7 +105,7 @@ class FirebaseFunctions {
   }
 
   void updateOrSetUserAlcoholTolerance(
-      {required String userId, required String alcoholTolerance}) {
+      {required String userId, required CaffeineTolerance alcoholTolerance}) {
     final userRef = databaseReference.child('users').child(userId);
 
     userRef.update({'alcohol_tolerance': alcoholTolerance}).then((_) {

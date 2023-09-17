@@ -104,14 +104,14 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setUserAlcoholTolerance(String tolerance) async {
+  Future<void> setUserAlcoholTolerance(CaffeineTolerance tolerance) async {
     if (_currentUser == null || _currentUser!.id.isEmpty) {
       print("No user found");
       return;
     }
     FirebaseFunctions().updateOrSetUserAlcoholTolerance(
         userId: _currentUser!.id, alcoholTolerance: tolerance);
-    _currentUser!.toleranse = tolerance;
+    _currentUser!.tolerance = tolerance;
     notifyListeners();
   }
 

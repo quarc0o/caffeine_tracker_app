@@ -1,6 +1,8 @@
 import 'models/Drink.dart';
+import 'models/UserModel.dart';
 
-List<double> calculateTotalCaffeineOverTime(List<Drink> drinks) {
+List<double> calculateTotalCaffeineOverTime(
+    List<Drink> drinks, UserModel user) {
   List<double> totalCaffeineContentPerMinute =
       List.filled(720, 0.0); // 12 hours x 60 minutes
   DateTime currentTime = DateTime.now();
@@ -13,8 +15,8 @@ List<double> calculateTotalCaffeineOverTime(List<Drink> drinks) {
 
       // Ensure that the drink was consumed in the last 12 hours.
       if (timePassed.inMinutes <= 720 && timePassed.inMinutes >= 0) {
-        totalCaffeineContentPerMinute[minute - 1] +=
-            caffeineRemaining(drink.caffeineContent.toDouble(), timePassed);
+        totalCaffeineContentPerMinute[minute - 1] += caffeineRemaining(
+            drink.caffeineContent.toDouble(), timePassed, user);
       }
     }
   }

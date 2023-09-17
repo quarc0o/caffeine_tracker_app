@@ -93,8 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 100,
                       ),
                       Chart(
-                        caffeineValues:
-                            calculateTotalCaffeineOverTime(user?.drinks ?? []),
+                        caffeineValues: calculateTotalCaffeineOverTime(
+                            user?.drinks ?? [], user!),
                       ),
                       SizedBox(
                         height: 40,
@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height:
                             200, // Adjust this value based on how tall you want the scrolling area to be.
                         child: DrinkScroll(
-                          drinks: user?.drinks,
+                          drinks: user.drinks,
                         ),
                       ),
                       ElevatedButton(
