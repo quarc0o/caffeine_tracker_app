@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/Drink.dart';
+import '../../providers/UserProvider.dart';
 
 class SingleDrink extends StatefulWidget {
   final Drink drink;
@@ -33,20 +35,51 @@ class _SingleDrinkState extends State<SingleDrink> {
       ),
       width: 150,
       height: 150,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(widget.drink.drinkName),
-          Container(
-            width: 100,
-            height: 100,
-            child: Image.asset(
-              "assets/energy.png",
-              fit: BoxFit.cover,
+      child: GestureDetector(
+        onLongPress: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Delete Drink'),
+                content: Text('Do you want to delete this drink?'),
+                actions: [
+                  TextButton(
+                    child: Text('Cancel'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: Text('Delete'),
+                    onPressed: () {
+                      // Fetch the user provider and call the delete function.
+                      final userProvider =
+                          Provider.of<UserProvider>(context, listen: false);
+                      userProvider.removeDrink(widget.drink.timestamp);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(widget.drink.drinkName),
+            Container(
+              width: 100,
+              height: 100,
+              child: Image.asset(
+                "assets/energy.png",
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Text(formattedTime),
-        ],
+            Text(formattedTime),
+          ],
+        ),
       ),
     );
   }

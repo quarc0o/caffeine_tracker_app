@@ -12,6 +12,13 @@ class Chart extends StatelessWidget {
       return FlSpot(index.toDouble(), caffeineValues[index]);
     });
 
+    double maxValue = caffeineValues.isEmpty
+        ? 0
+        : caffeineValues
+            .reduce((value, element) => value > element ? value : element);
+    double intervalValue = maxValue / 5;
+    if (intervalValue == 0) intervalValue = 1;
+
     return Container(
       width: 310,
       height: 210,
@@ -35,7 +42,9 @@ class Chart extends StatelessWidget {
           LineChartData(
             backgroundColor: Colors.white,
             gridData: FlGridData(show: false),
-            titlesData: FlTitlesData(show: false),
+            titlesData: FlTitlesData(
+              show: false,
+            ),
             minX: 0,
             maxX: caffeineValues.length.toDouble() - 1,
             minY: 0,

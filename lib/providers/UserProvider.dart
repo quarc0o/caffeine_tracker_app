@@ -54,12 +54,19 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> addDrink(String drinkName, int caffeineContent) async {
     if (_currentUser == null || _currentUser!.id.isEmpty) {
-      print("not working");
       return;
     }
-    print("working");
     FirebaseFunctions()
         .addDrinkToFirebase(_currentUser!.id, drinkName, caffeineContent);
+    fetchUserDrinks();
+  }
+
+  Future<void> removeDrink(int timestamp) async {
+    if (_currentUser == null || _currentUser!.id.isEmpty) {
+      return;
+    }
+    FirebaseFunctions()
+        .deleteDrinkFromFirebase(_currentUser!.id, timestamp.toString());
     fetchUserDrinks();
   }
 

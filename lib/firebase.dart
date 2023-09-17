@@ -68,4 +68,18 @@ class FirebaseFunctions {
     }
     return recentDrinks;
   }
+
+  void deleteDrinkFromFirebase(String userId, String timestamp) {
+    final drinkRef = databaseReference
+        .child('users')
+        .child(userId)
+        .child("drinks")
+        .child(timestamp);
+
+    drinkRef.remove().then((_) {
+      print("Drink deleted successfully!");
+    }).catchError((error) {
+      print("Failed to delete drink: $error");
+    });
+  }
 }
