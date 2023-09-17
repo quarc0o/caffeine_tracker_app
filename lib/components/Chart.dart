@@ -16,9 +16,6 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const int maxXTitles = 5; // For example, 5 titles on the x-axis
-    const int maxYTitles = 4; // For example, 4 titles on the y-axis
-
     List<FlSpot> caffeineData = List.generate(caffeineValues.length, (index) {
       return FlSpot(index.toDouble(), caffeineValues[index]);
     });
@@ -100,7 +97,7 @@ class Chart extends StatelessWidget {
                 ),
               ),
               minX: 0,
-              maxX: caffeineValues.length.toDouble() - 1,
+              maxX: (caffeineValues.length.toDouble() * 0.9) - 1,
               minY: 0,
               maxY: caffeineValues.reduce(
                       (value, element) => value > element ? value : element) +
