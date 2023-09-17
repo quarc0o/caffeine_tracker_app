@@ -1,9 +1,9 @@
+import 'package:din_koffein/components/DrinkHistory/DrinkScroll.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../components/Chart.dart';
 import '../providers/UserProvider.dart';
-// ... other imports
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,50 +24,67 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF0081A7),
-        title: Text('Home'),
+        backgroundColor: const Color(0xFF0081A7),
+        title: const Text('Home'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: _logout,
             tooltip: 'Logout',
           ),
         ],
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            flex: 1,
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
             child: Container(
-              color: Color(0xFF0081A7), // Adjust this to your desired color
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Hello, ${user?.name ?? 'Guest'}!',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      'Welcome back to our app!',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Chart()
-                  ],
-                ),
-              ),
+              height: MediaQuery.of(context).size.height *
+                  0.33, // This occupies 1/3 of the screen height
+              color:
+                  const Color(0xFF0081A7), // Adjust this to your desired color
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-                // This is the remaining 2/3 of the screen. You can put any other content you want here.
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Hello, ${user?.name ?? 'Guest'}!',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Welcome back to our app!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 100,
+                      ),
+                      const Chart(),
+                      Container(
+                        height:
+                            200, // Adjust this value based on how tall you want the scrolling area to be.
+                        child: DrinkScroll(),
+                      )
+                    ],
+                  ),
                 ),
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text('Additional content can be placed here.'),
+                ),
+              ],
+            ),
           ),
         ],
       ),
