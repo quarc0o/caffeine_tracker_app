@@ -16,6 +16,9 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const int maxXTitles = 5; // For example, 5 titles on the x-axis
+    const int maxYTitles = 4; // For example, 4 titles on the y-axis
+
     List<FlSpot> caffeineData = List.generate(caffeineValues.length, (index) {
       return FlSpot(index.toDouble(), caffeineValues[index]);
     });
@@ -34,7 +37,7 @@ class Chart extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
               color: Colors.black12,
               offset: Offset(0, 4),
               blurRadius: 4,
@@ -47,10 +50,33 @@ class Chart extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: LineChart(
             LineChartData(
-              clipData: FlClipData.all(),
+              lineTouchData: LineTouchData(
+                touchTooltipData: LineTouchTooltipData(
+                  maxContentWidth: 100,
+                  tooltipBgColor: Colors.black,
+                  getTooltipItems: (touchedSpots) {
+                    return touchedSpots.map((LineBarSpot touchedSpot) {
+                      final textStyle = TextStyle(
+                        color: touchedSpot.bar.gradient?.colors[0] ??
+                            touchedSpot.bar.color,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      );
+                      return LineTooltipItem(
+                        '${touchedSpot.y.toStringAsFixed(0)} mg',
+                        textStyle,
+                      );
+                    }).toList();
+                  },
+                ),
+                handleBuiltInTouches: true,
+                getTouchLineStart: (data, index) => 0,
+                getTouchLineEnd: (data, index) => 0,
+              ),
+              clipData: const FlClipData.all(),
               backgroundColor: Colors.white,
-              gridData: FlGridData(show: false),
-              titlesData: FlTitlesData(
+              gridData: const FlGridData(show: false),
+              titlesData: const FlTitlesData(
                 show: true,
                 rightTitles: AxisTitles(
                   sideTitles: SideTitles(showTitles: false),
@@ -87,7 +113,7 @@ class Chart extends StatelessWidget {
                   barWidth: 6,
                   isStrokeCapRound: true,
                   belowBarData: BarAreaData(show: false),
-                  dotData: FlDotData(show: false),
+                  dotData: const FlDotData(show: false),
                 ),
               ],
             ),
@@ -97,7 +123,7 @@ class Chart extends StatelessWidget {
 }
 
 Widget bottomTitleWidgets(double value, TitleMeta meta) {
-  final style = TextStyle(
+  final style = const TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 10,
   );
@@ -117,7 +143,7 @@ Widget bottomTitleWidgets(double value, TitleMeta meta) {
 }
 
 Widget leftTitleWidgets(double value, TitleMeta meta) {
-  final style = TextStyle(
+  final style = const TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 10,
   );
