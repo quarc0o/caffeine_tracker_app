@@ -53,6 +53,7 @@ class _SignUpState extends State<SignUp> {
               backgroundColor: Colors.green,
               textColor: Colors.white,
               fontSize: 16.0);
+          Navigator.pop(context);
         } catch (e) {
           print("Error during signup process: $e");
         }

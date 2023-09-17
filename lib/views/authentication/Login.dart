@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import 'SignUp.dart';
+
 class Login extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -76,6 +78,16 @@ class _LoginScreenState extends State<Login> {
               child: Text('Login'),
               onPressed: signIn,
             ),
+            SizedBox(height: 10.0),
+            ElevatedButton(
+              child: Text('Don\'t have an account? Sign Up'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignUp()),
+                );
+              },
+            )
           ],
         ),
       ),
