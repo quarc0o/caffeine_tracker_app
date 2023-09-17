@@ -82,4 +82,35 @@ class FirebaseFunctions {
       print("Failed to delete drink: $error");
     });
   }
+
+  void updateOrSetUserAge({required String userId, required int age}) {
+    final userRef = databaseReference.child('users').child(userId);
+
+    userRef.update({'age': age}).then((_) {
+      print("User age updated/created successfully!");
+    }).catchError((error) {
+      print("Failed to update/create user age: $error");
+    });
+  }
+
+  void updateOrSetUserWeight({required String userId, required int weight}) {
+    final userRef = databaseReference.child('users').child(userId);
+
+    userRef.update({'weight': weight}).then((_) {
+      print("User weight updated/created successfully!");
+    }).catchError((error) {
+      print("Failed to update/create user weight: $error");
+    });
+  }
+
+  void updateOrSetUserAlcoholTolerance(
+      {required String userId, required String alcoholTolerance}) {
+    final userRef = databaseReference.child('users').child(userId);
+
+    userRef.update({'alcohol_tolerance': alcoholTolerance}).then((_) {
+      print("User alcohol tolerance updated/created successfully!");
+    }).catchError((error) {
+      print("Failed to update/create user alcohol tolerance: $error");
+    });
+  }
 }

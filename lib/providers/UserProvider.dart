@@ -83,6 +83,38 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> setUserAge(int age) async {
+    if (_currentUser == null || _currentUser!.id.isEmpty) {
+      print("No user found");
+      return;
+    }
+    FirebaseFunctions().updateOrSetUserAge(userId: _currentUser!.id, age: age);
+    _currentUser!.age = age;
+    notifyListeners();
+  }
+
+  Future<void> setUserWeight(int weight) async {
+    if (_currentUser == null || _currentUser!.id.isEmpty) {
+      print("No user found");
+      return;
+    }
+    FirebaseFunctions()
+        .updateOrSetUserWeight(userId: _currentUser!.id, weight: weight);
+    _currentUser!.weight = weight;
+    notifyListeners();
+  }
+
+  Future<void> setUserAlcoholTolerance(String tolerance) async {
+    if (_currentUser == null || _currentUser!.id.isEmpty) {
+      print("No user found");
+      return;
+    }
+    FirebaseFunctions().updateOrSetUserAlcoholTolerance(
+        userId: _currentUser!.id, alcoholTolerance: tolerance);
+    _currentUser!.toleranse = tolerance;
+    notifyListeners();
+  }
+
   void signOut() {
     _auth.signOut();
     _currentUser = null;

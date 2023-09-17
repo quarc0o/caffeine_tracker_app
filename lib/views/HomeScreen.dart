@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../caffeine.dart';
 import '../components/Chart.dart';
 import '../providers/UserProvider.dart';
+import 'UserProfile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,6 +21,15 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.pushReplacementNamed(context, '/login');
   }
 
+  void _navigateToUserSettings() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (contect) => UserProfile(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
@@ -27,10 +37,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF0081A7),
-        title: const Text('Home'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.person, // This is the user icon.
+            color: Colors.white,
+          ),
+          onPressed: _navigateToUserSettings, // Handle the tap.
+          tooltip: 'User Settings',
+        ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
             onPressed: _logout,
             tooltip: 'Logout',
           ),
@@ -57,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Hello, ${user?.name ?? 'Guest'}!',
+                        'Hei, ${user?.name ?? 'gjest'}!',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24.0,
@@ -66,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const SizedBox(height: 20),
                       const Text(
-                        'Welcome back to our app!',
+                        'Velkommen tilbake!',
                         style: TextStyle(color: Colors.white),
                       ),
                       SizedBox(
