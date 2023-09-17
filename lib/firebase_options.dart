@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:714632178553:android:e8f307b7bb7040deb45da8',
     messagingSenderId: '714632178553',
     projectId: 'computas-case-it',
+    databaseURL: 'https://computas-case-it-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'computas-case-it.appspot.com',
   );
 
@@ -62,6 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:714632178553:ios:a8ab9dda3dce0697b45da8',
     messagingSenderId: '714632178553',
     projectId: 'computas-case-it',
+    databaseURL: 'https://computas-case-it-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'computas-case-it.appspot.com',
     iosBundleId: 'com.example.dinKoffein',
   );

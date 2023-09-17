@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../firebase.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -37,16 +39,23 @@ class _SignUpState extends State<SignUp> {
       );
 
       if (userCredential.user != null) {
-        await userCredential.user!
-            .updateDisplayName(nameController.text.trim());
+        try {
+          await userCredential.user!
+              .updateDisplayName(nameController.text.trim());
 
-        Fluttertoast.showToast(
-            msg: "Successfully Signed Up!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0);
+          await FirebaseFunctions.addUserToDatabase(
+              userCredential.user!.uid, nameController.text.trim());
+
+          Fluttertoast.showToast(
+              msg: "Successfully Signed Up!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        } catch (e) {
+          print("Error during signup process: $e");
+        }
         // Navigate to another screen or action upon successful signup.
       }
     } catch (e) {
