@@ -2,6 +2,7 @@ import 'package:din_koffein/firebase.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../models/Drink.dart';
 import '../models/UserModel.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -16,6 +17,7 @@ class UserProvider extends ChangeNotifier {
 
   set user(UserModel? user) {
     _currentUser = user;
+    fetchUserDrinks();
     notifyListeners();
   }
 
@@ -56,6 +58,19 @@ class UserProvider extends ChangeNotifier {
     print("working");
     FirebaseFunctions()
         .addDrinkToFirebase(_currentUser!.id, drinkName, caffeineContent);
+    fetchUserDrinks();
+  }
+
+  Future<void> fetchUserDrinks() async {
+    if (_currentUser == null || _currentUser!.id.isEmpty) {
+      print("No user found");
+      return;
+    }
+
+    List<Drink> userDrinks =
+        await FirebaseFunctions().fetchRecentDrinks(_currentUser!.id);
+    _currentUser!.drinks = userDrinks;
+    notifyListeners();
   }
 
   void signOut() {

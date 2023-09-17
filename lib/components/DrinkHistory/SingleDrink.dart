@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../models/Drink.dart';
+
 class SingleDrink extends StatefulWidget {
-  const SingleDrink({super.key});
+  final Drink drink;
+  const SingleDrink({super.key, required this.drink});
 
   @override
   State<SingleDrink> createState() => _SingleDrinkState();

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../models/Drink.dart';
+import '../../providers/UserProvider.dart';
 import 'SingleDrink.dart';
 
 class DrinkScroll extends StatefulWidget {
@@ -14,15 +17,21 @@ class _DrinkScrollState extends State<DrinkScroll> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     return ListView.builder(
       scrollDirection:
           Axis.horizontal, // This makes the ListView scroll horizontally
-      itemCount: numberOfDrinks,
+      itemCount: userProvider.user?.drinks?.length ?? 0,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleDrink(),
-        );
+        if (userProvider.user?.drinks == null) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleDrink(
+              drink: userProvider.user!.drinks![index],
+            ),
+          );
+        }
       },
     );
   }
