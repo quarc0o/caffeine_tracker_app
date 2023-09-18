@@ -31,9 +31,8 @@ class _SingleDrinkState extends State<SingleDrink> {
     String formattedTime = DateFormat('HH:mm').format(dateTime);
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white, // This gives the background color
-        borderRadius:
-            BorderRadius.circular(16), // This gives the rounded borders
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
@@ -90,7 +89,20 @@ class _SingleDrinkState extends State<SingleDrink> {
                 fit: BoxFit.cover,
               ),
             ),
-            Text(formattedTime),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/clock.png',
+                  width: 16,
+                  height: 16,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(formattedTime),
+              ],
+            )
           ],
         ),
       ),
