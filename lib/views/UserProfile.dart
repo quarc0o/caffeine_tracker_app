@@ -77,7 +77,7 @@ class _UserProfileState extends State<UserProfile> {
                         Icon(Icons.fitness_center, color: Color(0xff0081A7)),
                         SizedBox(width: 10),
                         Text(
-                          "Weight: ${weight}kg",
+                          "Vekt: ${weight}kg",
                           style: TextStyle(fontSize: 18),
                         ),
                       ],
