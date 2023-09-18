@@ -73,6 +73,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Velg produkt",
@@ -137,7 +138,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   color: Colors.blue,
                 ),
               ),
-              Spacer(),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(double.infinity, 50),
