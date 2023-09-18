@@ -46,109 +46,126 @@ class _AddProductScreenState extends State<AddProductScreen> {
     }
   }
 
+  String getUnitsHint() {
+    switch (_selectedProduct) {
+      case 'Te':
+      case 'Kaffe':
+        return "Kopper (2 dl)";
+      case 'Energidrikke':
+        return "Små kanner (250ml)";
+      default:
+        return "Enheter";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
 
-    return Scaffold(
-      appBar: AppBar(title: Text("Legg til")),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Velg produkt",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 10),
-            DropdownButton<String>(
-              isExpanded: true,
-              value: _selectedProduct,
-              onChanged: (newValue) {
-                if (newValue != null) {
-                  setState(() {
-                    _selectedProduct = newValue;
-                  });
-                }
-              },
-              items: _products.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 24),
-            Center(
-              child: Image.asset(
-                getImage(),
-                width: 200,
-                height: 200,
-                fit: BoxFit.contain,
-              ),
-            ),
-            SizedBox(height: 24),
-            Text(
-              "Enheter",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            TextField(
-              controller: _controller,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: 'Enheter',
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _numberOfCups = int.tryParse(value) ?? 0;
-                });
-              },
-            ),
-            SizedBox(height: 24),
-            Text(
-              'Totalt koffeininntak: ${_calculateCaffeineIntake()} mg',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Colors.blue,
-              ),
-            ),
-            Spacer(),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
-
-                  foregroundColor: Colors.white,
-                  backgroundColor:
-                      Color(0xffF07167), // This is the color of the text
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(title: Text("Legg til")),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Velg produkt",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
-                onPressed: () {
-                  try {
-                    userProvider.addDrink(
-                        _selectedProduct, _calculateCaffeineIntake());
-                    Navigator.pop(context, _calculateCaffeineIntake());
-                    Fluttertoast.showToast(
-                        msg: "Produkt lagt til",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.green,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-                  } catch (e) {
-                    print(e);
+              ),
+              SizedBox(height: 10),
+              DropdownButton<String>(
+                isExpanded: true,
+                value: _selectedProduct,
+                onChanged: (newValue) {
+                  if (newValue != null) {
+                    setState(() {
+                      _selectedProduct = newValue;
+                    });
                   }
                 },
-                child: Text("Legg til")),
-          ],
+                items: _products.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 24),
+              Center(
+                child: Image.asset(
+                  getImage(),
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(height: 24),
+              Text(
+                getUnitsHint(),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              TextField(
+                controller: _controller,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: 'Enheter',
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _numberOfCups = int.tryParse(value) ?? 0;
+                  });
+                },
+              ),
+              SizedBox(height: 24),
+              Text(
+                'Totalt koffeininntak: ${_calculateCaffeineIntake()} mg',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.blue,
+                ),
+              ),
+              Spacer(),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 50),
+
+                    foregroundColor: Colors.white,
+                    backgroundColor:
+                        Color(0xffF07167), // This is the color of the text
+                  ),
+                  onPressed: () {
+                    try {
+                      userProvider.addDrink(
+                          _selectedProduct, _calculateCaffeineIntake());
+                      Navigator.pop(context, _calculateCaffeineIntake());
+                      Fluttertoast.showToast(
+                          msg: "Produkt lagt til",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                    } catch (e) {
+                      print(e);
+                    }
+                  },
+                  child: Text("Legg til")),
+            ],
+          ),
         ),
       ),
     );

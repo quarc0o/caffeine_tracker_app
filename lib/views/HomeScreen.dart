@@ -39,20 +39,20 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color(0xFF0081A7),
         leading: IconButton(
           icon: const Icon(
-            Icons.person, // This is the user icon.
+            Icons.logout,
             color: Colors.white,
           ),
-          onPressed: _navigateToUserSettings, // Handle the tap.
-          tooltip: 'User Settings',
+          onPressed: _logout,
+          tooltip: 'Logout',
         ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(
-              Icons.logout,
+              Icons.person, // This is the user icon.
               color: Colors.white,
             ),
-            onPressed: _logout,
-            tooltip: 'Logout',
+            onPressed: _navigateToUserSettings, // Handle the tap.
+            tooltip: 'User Settings',
           ),
         ],
       ),
