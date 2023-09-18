@@ -9,8 +9,7 @@ class Chart extends StatelessWidget {
 
   String getHourString(int index) {
     final now = DateTime.now();
-    final targetTime =
-        now.add(Duration(hours: index * 2)); // adding 2 hours for each step
+    final targetTime = now.add(Duration(minutes: index));
     return DateFormat('HH:mm').format(targetTime);
   }
 
@@ -29,7 +28,7 @@ class Chart extends StatelessWidget {
 
     return Container(
         width: 330,
-        height: 210,
+        height: 220,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
@@ -72,7 +71,23 @@ class Chart extends StatelessWidget {
               ),
               clipData: const FlClipData.all(),
               backgroundColor: Colors.white,
-              gridData: const FlGridData(show: false),
+              gridData: FlGridData(
+                show: true,
+                drawVerticalLine: true,
+                getDrawingHorizontalLine: (value) {
+                  return FlLine(
+                    color: const Color(0xffe7e8ec),
+                    strokeWidth: 0.5,
+                  );
+                },
+                getDrawingVerticalLine: (value) {
+                  return FlLine(
+                    color: const Color(0xffe7e8ec),
+                    strokeWidth: 0.5,
+                  );
+                },
+              ),
+
               titlesData: const FlTitlesData(
                 show: true,
                 rightTitles: AxisTitles(
@@ -97,11 +112,11 @@ class Chart extends StatelessWidget {
                 ),
               ),
               minX: 0,
-              maxX: (caffeineValues.length.toDouble() * 0.9) - 1,
+              maxX: (caffeineValues.length.toDouble() * 0.8) - 1,
               minY: 0,
               maxY: caffeineValues.reduce(
                       (value, element) => value > element ? value : element) +
-                  10, // Setting maximum Y to a bit more than the max caffeine value for better chart visibility.
+                  5, // Setting maximum Y to a bit more than the max caffeine value for better chart visibility.
               borderData: FlBorderData(show: false),
               lineBarsData: [
                 LineChartBarData(
@@ -127,8 +142,7 @@ Widget bottomTitleWidgets(double value, TitleMeta meta) {
   );
   String getHourString(int index) {
     final now = DateTime.now();
-    final targetTime =
-        now.add(Duration(hours: index * 2)); // adding 2 hours for each step
+    final targetTime = now.add(Duration(minutes: index));
     return DateFormat('HH:mm').format(targetTime);
   }
 

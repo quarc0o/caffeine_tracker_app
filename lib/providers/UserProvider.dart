@@ -79,6 +79,10 @@ class UserProvider extends ChangeNotifier {
     List<Drink> userDrinks =
         await FirebaseFunctions().fetchRecentDrinks(_currentUser!.id);
     _currentUser!.drinks = userDrinks;
+
+    // Sorting the drinks based on their timestamp with the most recent ones first.
+    userDrinks.sort((a, b) => b.timeConsumed.compareTo(a.timeConsumed));
+
     _currentDrinks = userDrinks;
     notifyListeners();
   }

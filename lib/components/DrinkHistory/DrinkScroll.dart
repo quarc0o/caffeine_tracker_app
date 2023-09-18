@@ -16,8 +16,7 @@ class _DrinkScrollState extends State<DrinkScroll> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      scrollDirection:
-          Axis.horizontal, // This makes the ListView scroll horizontally
+      scrollDirection: Axis.horizontal,
       itemCount: widget.drinks?.length ?? 0,
       itemBuilder: (context, index) {
         if (widget.drinks != null) {
