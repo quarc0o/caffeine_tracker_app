@@ -36,13 +36,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
     return caffeineAmountPerCup * _numberOfCups;
   }
 
-  // 2. Introduce function to invoke the barcode scanner
-  _scanBarcode({bool shouldSnapImage = false}) async {
-    String scannerResult = await FlutterBarcodeScanner.scanBarcode(
-        '#ff6666', 'Avbryt', true, ScanMode.BARCODE);
-    print('Scanned barcode: $scannerResult');
-  }
-
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider =
@@ -70,11 +63,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 );
               }).toList(),
             ),
-            if (_selectedProduct == "energy drink")
-              ElevatedButton(
-                onPressed: _scanBarcode,
-                child: Text("Scan Barcode"),
-              ),
             Expanded(
               child: Center(
                 child: Image.asset(
