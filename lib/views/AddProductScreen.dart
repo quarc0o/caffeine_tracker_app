@@ -52,12 +52,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
         Provider.of<UserProvider>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(title: Text("Add Product")),
+      appBar: AppBar(title: Text("Legg til")),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              "Velg produkt",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 10),
             DropdownButton<String>(
+              isExpanded: true,
               value: _selectedProduct,
               onChanged: (newValue) {
                 if (newValue != null) {
@@ -73,21 +83,28 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 );
               }).toList(),
             ),
-            Expanded(
-              child: Center(
-                child: Image.asset(
-                  getImage(),
-                  width: 200,
-                  height: 200,
-                  fit: BoxFit.contain,
-                ),
+            SizedBox(height: 24),
+            Center(
+              child: Image.asset(
+                getImage(),
+                width: 200,
+                height: 200,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(height: 24),
+            Text(
+              "Enheter",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
               ),
             ),
             TextField(
               controller: _controller,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: 'Number of cups',
+                hintText: 'Enheter',
               ),
               onChanged: (value) {
                 setState(() {
@@ -95,22 +112,31 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 });
               },
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 24),
             Text(
-              'Total caffeine intake: ${_calculateCaffeineIntake()} mg',
+              'Totalt koffeininntak: ${_calculateCaffeineIntake()} mg',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 18,
+                color: Colors.blue,
               ),
             ),
+            Spacer(),
             ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+
+                  foregroundColor: Colors.white,
+                  backgroundColor:
+                      Color(0xffF07167), // This is the color of the text
+                ),
                 onPressed: () {
                   try {
                     userProvider.addDrink(
                         _selectedProduct, _calculateCaffeineIntake());
                     Navigator.pop(context, _calculateCaffeineIntake());
                     Fluttertoast.showToast(
-                        msg: "Product lagt til",
+                        msg: "Produkt lagt til",
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,
@@ -121,7 +147,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     print(e);
                   }
                 },
-                child: Text("Add product")),
+                child: Text("Legg til")),
           ],
         ),
       ),

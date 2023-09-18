@@ -109,9 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 30,
                       ),
-                      Container(
-                        width: 200,
-                        height: 50,
+                      Padding(
+                        padding: EdgeInsets.all(10),
                         child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
@@ -122,12 +121,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
+                              minimumSize: Size(double.infinity, 50),
                               foregroundColor: Colors.white,
                               backgroundColor: Color(
                                   0xffF07167), // This is the color of the text
                             ),
                             child: Text("Legg til")),
-                      )
+                      ),
                     ],
                   ),
                 ),
