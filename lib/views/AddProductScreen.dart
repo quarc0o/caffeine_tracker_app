@@ -1,7 +1,5 @@
-import 'package:barcode_scanner/barcode_scanning_data.dart';
-import 'package:barcode_scanner/json/common_data.dart';
-import 'package:barcode_scanner/scanbot_barcode_sdk.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
@@ -40,39 +38,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   // 2. Introduce function to invoke the barcode scanner
   _scanBarcode({bool shouldSnapImage = false}) async {
-    final additionalParameters = BarcodeAdditionalParameters(
-      minimumTextLength: 3,
-      maximumTextLength: 45,
-      minimum1DBarcodesQuietZone: 10,
-      codeDensity: CodeDensity.HIGH,
-    );
-    var config = BarcodeScannerConfiguration(
-      barcodeImageGenerationType: shouldSnapImage
-          ? BarcodeImageGenerationType.VIDEO_FRAME
-          : BarcodeImageGenerationType.NONE,
-      topBarBackgroundColor: Colors.blueAccent,
-      finderLineColor: Colors.red,
-      cancelButtonTitle: "Cancel",
-      finderTextHint:
-          "Please align any supported barcode in the frame to scan it.",
-      successBeepEnabled: true,
-
-      // cameraZoomFactor: 1,
-      additionalParameters: additionalParameters,
-      // see further customization configs ...
-      orientationLockMode: OrientationLockMode.NONE,
-      //useButtonsAllCaps: true,
-    );
-
-    try {
-      var result = await ScanbotBarcodeSdk.startBarcodeScanner(config);
-
-      if (result.operationResult == OperationResult.SUCCESS) {
-        // TODO handle result
-      }
-    } catch (e) {
-      print(e);
-    }
+    String scannerResult = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666', 'Avbryt', true, ScanMode.BARCODE);
+    print('Scanned barcode: $scannerResult');
   }
 
   @override
