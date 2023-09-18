@@ -36,7 +36,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0081A7),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                const Color(0xFF0081A7),
+                const Color(0xFF00A0C6), // A lighter shade for gradient
+              ],
+            ),
+          ),
+        ),
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: CircleAvatar(
@@ -78,11 +89,23 @@ class _HomeScreenState extends State<HomeScreen> {
             top: 0,
             left: 0,
             right: 0,
-            child: Container(
-              height: MediaQuery.of(context).size.height *
-                  0.33, // This occupies 1/3 of the screen height
-              color:
-                  const Color(0xFF0081A7), // Adjust this to your desired color
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    const Color(0xFF0081A7),
+                    const Color(0xFF00A0C6), // A lighter shade for gradient
+                  ],
+                ),
+              ),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.33,
+                // This occupies 1/3 of the screen height. It's important to give this container a height.
+                width: double
+                    .infinity, // This will ensure it spans the width of the screen.
+              ),
             ),
           ),
           SingleChildScrollView(
