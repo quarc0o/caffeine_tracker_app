@@ -129,18 +129,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(color: Colors.white),
                       ),
                       SizedBox(
-                        height: 100,
+                        height: 60,
                       ),
                       Chart(
                         caffeineValues: calculateTotalCaffeineOverTime(
                             user?.drinks ?? [], user!),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
                       Container(
                         height:
-                            200, // Adjust this value based on how tall you want the scrolling area to be.
+                            240, // Adjust this value based on how tall you want the scrolling area to be.
                         child: DrinkScroll(
                           drinks: user.drinks,
                         ),

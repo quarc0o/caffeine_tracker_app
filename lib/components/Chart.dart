@@ -15,6 +15,23 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _showInfoDialog() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Koffeininntak'),
+          content: Text(
+              'Diagrammet vises hvordan koffeininnholdet i blodet ditt endrer seg over tid. Trykk og hold inne for å se nøyaktig verdi. Endre personlig informasjon på profilsiden for et bedre estimat.'),
+          actions: [
+            TextButton(
+              child: Text('Lukk'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    }
+
     List<FlSpot> caffeineData = List.generate(caffeineValues.length, (index) {
       return FlSpot(index.toDouble(), caffeineValues[index]);
     });
@@ -26,7 +43,8 @@ class Chart extends StatelessWidget {
     double intervalValue = maxValue / 5;
     if (intervalValue == 0) intervalValue = 1;
 
-    return Container(
+    return Stack(children: [
+      Container(
         width: 330,
         height: 220,
         decoration: BoxDecoration(
@@ -131,7 +149,19 @@ class Chart extends StatelessWidget {
               ],
             ),
           ),
-        ));
+        ),
+      ),
+      Positioned(
+        top: 8,
+        right: 8,
+        child: IconButton(
+          icon: Icon(Icons.info, color: Colors.blue),
+          onPressed: () {
+            _showInfoDialog();
+          },
+        ),
+      ),
+    ]);
   }
 }
 
