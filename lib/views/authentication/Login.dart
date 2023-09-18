@@ -28,14 +28,14 @@ class _LoginScreenState extends State<Login> {
 
       if (userCredential.user != null) {
         Fluttertoast.showToast(
-            msg: "Successfully Logged In!",
+            msg: "Logget inn!",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.green,
             textColor: Colors.white,
             fontSize: 16.0);
-        // Navigate to another screen, or whatever action you want upon successful login
+        Navigator.pushReplacementNamed(context, '/home');
       }
     } catch (e) {
       Fluttertoast.showToast(
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(title: Text('Logg inn')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -65,8 +65,8 @@ class _LoginScreenState extends State<Login> {
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                hintText: 'Enter your email',
-                labelText: 'Email',
+                hintText: 'Skriv inn e-post',
+                labelText: 'E-post',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -75,8 +75,8 @@ class _LoginScreenState extends State<Login> {
               controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: 'Enter your password',
-                labelText: 'Password',
+                hintText: 'Skriv inn passord',
+                labelText: 'Passord',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -85,12 +85,24 @@ class _LoginScreenState extends State<Login> {
               CircularProgressIndicator()
             else
               ElevatedButton(
-                child: Text('Login'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  foregroundColor: Colors.white,
+                  backgroundColor:
+                      Color(0xffF07167), // This is the color of the text
+                ),
+                child: Text('Logg inn'),
                 onPressed: signIn,
               ),
             SizedBox(height: 10.0),
             ElevatedButton(
-              child: Text('Don\'t have an account? Sign Up'),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50),
+                foregroundColor: Colors.white,
+                backgroundColor:
+                    Color(0xffF07167), // This is the color of the text
+              ),
+              child: Text('Opprett bruker'),
               onPressed: () {
                 Navigator.push(
                   context,

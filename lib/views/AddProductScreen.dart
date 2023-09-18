@@ -50,9 +50,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
     switch (_selectedProduct) {
       case 'Te':
       case 'Kaffe':
-        return "Kopper (2 dl)";
+        return "Kopp (2 dl)";
       case 'Energidrikke':
-        return "Små kanner (250ml)";
+        return "Liten kanne (250ml)";
       default:
         return "Enheter";
     }

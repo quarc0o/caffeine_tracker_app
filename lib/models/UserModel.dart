@@ -26,11 +26,11 @@ extension CaffeineToleranceExtension on CaffeineTolerance {
   String get description {
     switch (this) {
       case CaffeineTolerance.LOW:
-        return "Low";
+        return "Lav";
       case CaffeineTolerance.MEDIUM:
-        return "Medium";
+        return "Moderat";
       case CaffeineTolerance.HIGH:
-        return "High";
+        return "Høy";
       default:
         return this
             .toString()

@@ -25,7 +25,7 @@ class _UserProfileState extends State<UserProfile> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("User Profile"),
+        title: Text("Profil"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -36,26 +36,80 @@ class _UserProfileState extends State<UserProfile> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "Hello, $name!",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            Container(
+                padding:
+                    EdgeInsets.all(20.0), // Adjust based on your requirement
+                decoration: BoxDecoration(
+                  color: const Color(
+                      0xff0081A7), // This will give it a light blue background
+                  borderRadius: BorderRadius.circular(
+                      200), // This will make the container round-shaped
+                ),
+                child: Icon(
+                  Icons.person,
+                  size: 300,
+                  color: Colors.white,
+                )),
+            SizedBox(height: 20),
+            Card(
+              elevation: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.cake, color: Color(0xff0081A7)),
+                        SizedBox(width: 10),
+                        Text(
+                          "Alder: $age",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Icon(Icons.fitness_center, color: Color(0xff0081A7)),
+                        SizedBox(width: 10),
+                        Text(
+                          "Weight: ${weight}kg",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Icon(Icons.local_cafe, color: Color(0xff0081A7)),
+                        SizedBox(width: 10),
+                        Text(
+                          "Koffeintolleranse: ${caffeineTolerance.description}",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 20),
-            Text("Alder: $age"),
-            SizedBox(height: 10),
-            Text("Weight: ${weight}kg"),
-            SizedBox(height: 10),
-            Text("Caffeine Tolerance: ${caffeineTolerance.description}"),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () =>
-                  _showEditProfileDialog(name, age, weight, caffeineTolerance),
-              child: Text("Edit Profile"),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  foregroundColor: Colors.white,
+                  backgroundColor:
+                      Color(0xffF07167), // This is the color of the text
+                ),
+                onPressed: () => _showEditProfileDialog(
+                    name, age, weight, caffeineTolerance),
+                child: Text("Endre opplysninger"),
+              ),
             ),
           ],
         ),
@@ -76,7 +130,7 @@ class _UserProfileState extends State<UserProfile> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
-              title: Text("Edit Profile"),
+              title: Text("Endre opplysninger"),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -102,6 +156,9 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                   DropdownButtonFormField<CaffeineTolerance>(
                     value: caffeineTolerance,
+                    decoration: InputDecoration(
+                      labelText: "Koffeintolleranse",
+                    ),
                     items:
                         CaffeineTolerance.values.map((CaffeineTolerance value) {
                       return DropdownMenuItem<CaffeineTolerance>(

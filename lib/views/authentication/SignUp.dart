@@ -26,7 +26,7 @@ class _SignUpState extends State<SignUp> {
     });
     if (passwordController.text != confirmPasswordController.text) {
       Fluttertoast.showToast(
-          msg: "Passwords do not match!",
+          msg: "Passordene er ikke like!",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.red,
@@ -51,7 +51,7 @@ class _SignUpState extends State<SignUp> {
               userCredential.user!.uid, nameController.text.trim());
 
           Fluttertoast.showToast(
-              msg: "Successfully Signed Up!",
+              msg: "Bruker opprettet!",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               backgroundColor: Colors.green,
@@ -80,7 +80,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign Up')),
+      appBar: AppBar(title: Text('Opprett bruker')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -89,8 +89,8 @@ class _SignUpState extends State<SignUp> {
             TextField(
               controller: nameController,
               decoration: InputDecoration(
-                hintText: 'Enter your name',
-                labelText: 'Name',
+                hintText: 'Skriv inn navn',
+                labelText: 'Fornavn',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -99,8 +99,8 @@ class _SignUpState extends State<SignUp> {
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                hintText: 'Enter your email',
-                labelText: 'Email',
+                hintText: 'Skriv inn e-post',
+                labelText: 'E-post',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -109,8 +109,8 @@ class _SignUpState extends State<SignUp> {
               controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: 'Enter your password',
-                labelText: 'Password',
+                hintText: 'Skriv inn passord',
+                labelText: 'Passord',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -119,8 +119,8 @@ class _SignUpState extends State<SignUp> {
               controller: confirmPasswordController,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: 'Confirm your password',
-                labelText: 'Confirm Password',
+                hintText: 'Bekreft passord',
+                labelText: 'Bekreft passord',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -129,6 +129,12 @@ class _SignUpState extends State<SignUp> {
               CircularProgressIndicator()
             else
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  foregroundColor: Colors.white,
+                  backgroundColor:
+                      Color(0xffF07167), // This is the color of the text
+                ),
                 child: Text('Sign Up'),
                 onPressed: signUp,
               ),

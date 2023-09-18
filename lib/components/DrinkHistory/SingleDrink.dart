@@ -51,17 +51,20 @@ class _SingleDrinkState extends State<SingleDrink> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('Delete Drink'),
-                content: Text('Do you want to delete this drink?'),
+                title: Text('Slett drink'),
+                content: Text('Ønsker du å slette denne drinken?'),
                 actions: [
                   TextButton(
-                    child: Text('Cancel'),
+                    child: Text('Avbryt'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text('Delete'),
+                    child: Text(
+                      'Slett',
+                      style: TextStyle(color: Colors.red),
+                    ),
                     onPressed: () {
                       // Fetch the user provider and call the delete function.
                       final userProvider =
