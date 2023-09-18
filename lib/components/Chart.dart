@@ -196,7 +196,7 @@ Widget leftTitleWidgets(double value, TitleMeta meta) {
     // Check if the value is an integer
     text = '${value.toInt()} mg'; // Convert to integer and add 'K' postfix
   } else {
-    text = '${value.toStringAsFixed(1)} mg'; // Keep one decimal point if needed
+    return Container();
   }
 
   return SideTitleWidget(
