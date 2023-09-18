@@ -115,18 +115,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'Hei, ${user?.name ?? 'gjest'}!',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
+                      Align(
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisSize: MainAxisSize
+                              .min, // <-- This makes the row take up the least possible space
+                          children: [
+                            Text(
+                              'Hei, ',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 24.0,
+                              ),
+                            ),
+                            Text(
+                              '${user?.name ?? 'gjest'}!',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 20),
                       const Text(
-                        'Velkommen tilbake!',
-                        style: TextStyle(color: Colors.white),
+                        'Hold oversikt over ditt koffeinforbruk',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                       SizedBox(
                         height: 60,
