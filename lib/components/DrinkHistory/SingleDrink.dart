@@ -9,6 +9,16 @@ class SingleDrink extends StatefulWidget {
   final Drink drink;
   const SingleDrink({super.key, required this.drink});
 
+  String getImage() {
+    if (drink.drinkName == "Te") {
+      return "assets/tea.png";
+    } else if (drink.drinkName == "Kaffe") {
+      return "assets/coffee.png";
+    } else {
+      return "assets/energy.png";
+    }
+  }
+
   @override
   State<SingleDrink> createState() => _SingleDrinkState();
 }
@@ -73,7 +83,7 @@ class _SingleDrinkState extends State<SingleDrink> {
               width: 100,
               height: 100,
               child: Image.asset(
-                "assets/energy.png",
+                widget.getImage(),
                 fit: BoxFit.cover,
               ),
             ),

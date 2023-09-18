@@ -13,27 +13,37 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  final List<String> _products = ["tea", "coffee", "energy drink"];
-  String _selectedProduct = "tea";
+  final List<String> _products = ["Te", "Kaffe", "Energidrikke"];
+  String _selectedProduct = "Te";
   int _numberOfCups = 1;
   final TextEditingController _controller = TextEditingController(text: "1");
 
   int _calculateCaffeineIntake() {
     int caffeineAmountPerCup;
     switch (_selectedProduct) {
-      case 'tea':
-        caffeineAmountPerCup = 50; // mg of caffeine for tea
+      case 'Te':
+        caffeineAmountPerCup = 50;
         break;
-      case 'coffee':
-        caffeineAmountPerCup = 95; // mg of caffeine for coffee
+      case 'Kaffe':
+        caffeineAmountPerCup = 95;
         break;
-      case 'energy drink':
-        caffeineAmountPerCup = 80; // mg of caffeine for energy drink
+      case 'Energidrikke':
+        caffeineAmountPerCup = 80;
         break;
       default:
         caffeineAmountPerCup = 0;
     }
     return caffeineAmountPerCup * _numberOfCups;
+  }
+
+  String getImage() {
+    if (_selectedProduct == "Te") {
+      return "assets/tea.png";
+    } else if (_selectedProduct == "Kaffe") {
+      return "assets/coffee.png";
+    } else {
+      return "assets/energy.png";
+    }
   }
 
   @override
@@ -66,7 +76,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             Expanded(
               child: Center(
                 child: Image.asset(
-                  'assets/coffee.png',
+                  getImage(),
                   width: 200,
                   height: 200,
                   fit: BoxFit.contain,

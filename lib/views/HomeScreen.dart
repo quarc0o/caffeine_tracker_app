@@ -106,22 +106,30 @@ class _HomeScreenState extends State<HomeScreen> {
                           drinks: user.drinks,
                         ),
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AddProductScreen(),
-                              ),
-                            );
-                          },
-                          child: Text("Legg til"))
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        width: 200,
+                        height: 50,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddProductScreen(),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Color(
+                                  0xffF07167), // This is the color of the text
+                            ),
+                            child: Text("Legg til")),
+                      )
                     ],
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(16.0),
-                  child: const Text('Additional content can be placed here.'),
                 ),
               ],
             ),
