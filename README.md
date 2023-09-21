@@ -4,6 +4,8 @@ This project was part of a 24 hour case challenge held by [Computas](https://com
 
 Caffeine metabolism is highly individual, and a lot more factors play a role than the ones taken into consideration here. This project only serves to explore the possibility, and was done mostly for fun 😎
 
+This app was made using Flutter.
+
 ## Demo
 
 ### The homescreen of the app has a graph displaying caffeine contents in the body at different time intervalls and drinks consumed the last 24 hours
