@@ -8,7 +8,11 @@ Caffeine metabolism is highly individual, and a lot more factors play a role tha
 
 ### The homescreen of the app has a graph displaying caffeine contents in the body at different time intervalls and drinks consumed the last 24 hours
 
-<img src=https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/57206e00-e856-4626-aea1-27a8918c06ed width=400>
+<img src=https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/2883c148-98eb-4f3c-838d-de0c083cf1a9 width=400>
+
+
+
+
 
 ### Pressing "add" lets users add a drink (coffe, tea or energy drink) and shows the caffeine contents of each
 <img src=https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/32d6489c-8c52-4b07-981f-ee296e4d0f31 width=400>
