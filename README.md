@@ -15,16 +15,20 @@ Caffeine metabolism is highly individual, and a lot more factors play a role tha
 
 
 ### Pressing "add" lets users add a drink (coffe, tea or energy drink) and shows the caffeine contents of each
-<img src=https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/32d6489c-8c52-4b07-981f-ee296e4d0f31 width=400>
+<img src=https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/ae816f0a-b65c-4598-9474-7e4961d9a1ee width=400>
+
 
 ### In the profile section, the user can add their personal information, to get a more accurate graph
-<img src=https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/53a564fe-d9cd-4976-b493-547a224b538f width=400>
+<img src=https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/c24c9cf5-3339-4a13-b246-694d25e4f56c width=400>
+
 
 ### The login screen
-<img src=https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/7a3ff335-98fb-4476-8689-3bfcffe9807d width=400>
+<img src=https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/ee6c379c-c9ed-47ad-8a5e-20f810d3b012 width=400>
+
 
 ### Holding a finger on the graph lets the user see exact caffeine content at a specific time
-https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/f8e152e7-06b2-46d6-aa66-5378b2210902
+https://github.com/quarc0o/caffeine_tracker_app/assets/39808085/9aa5a44a-4f45-4f11-93e4-8abbdd07ede1
+
 
 
 ## 🔗 Links
